@@ -1,0 +1,14 @@
+/.idea/.gitignore
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/labs-ProjectRK900.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/out/production/StrategyDemo/FlyStrategy.class
+/out/production/StrategyDemo/Hero.class
+/out/production/StrategyDemo/HorseRideStrategy.class
+/out/production/StrategyDemo/MoveStrategy.class
+/out/production/StrategyDemo/RunStrategy.class
+/out/production/StrategyDemo/StrategyDemo.class
+/out/production/StrategyDemo/SwimStrategy.class
+/out/production/StrategyDemo/WalkStrategy.class
