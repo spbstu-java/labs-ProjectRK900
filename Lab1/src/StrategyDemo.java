@@ -1,11 +1,71 @@
 import java.util.Scanner;
 
 public class StrategyDemo {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    interface MoveStrategy {
+        void move(String from, String to);
+    }
 
+    static final class Hero {
+        private MoveStrategy moveStrategy;
+
+        public Hero() { }
+
+        public Hero(MoveStrategy moveStrategy) {
+            this.moveStrategy = moveStrategy;
+        }
+
+        public void setMoveStrategy(MoveStrategy moveStrategy) {
+            this.moveStrategy = moveStrategy;
+        }
+
+        public void move(String from, String to) {
+            if (moveStrategy != null) {
+                moveStrategy.move(from, to);
+            }
+            else {
+                System.out.println("Способ перемещения героя не установлен!");
+            }
+        }
+    }
+
+    static final class WalkStrategy implements MoveStrategy {
+        @Override
+        public void move(String from, String to) {
+            System.out.println("Иду пешком из " + from + " в " + to);
+        }
+    }
+
+    static final class RunStrategy implements MoveStrategy {
+        @Override
+        public void move(String from, String to) {
+            System.out.println("Бегу из " + from + " в " + to);
+        }
+    }
+
+    static final class HorseRideStrategy implements MoveStrategy {
+        @Override
+        public void move(String from, String to) {
+            System.out.println("Еду верхом на лошади из " + from + " в " + to);
+        }
+    }
+
+    static final class FlyStrategy implements MoveStrategy {
+        @Override
+        public void move(String from, String to) {
+            System.out.println("Лечу из " + from + " в " + to);
+        }
+    }
+
+    static final class SwimStrategy implements MoveStrategy {
+        @Override
+        public void move(String from, String to) {
+            System.out.println("Плыву по реке из " + from + " в " + to);
+        }
+    }
+
+    public static void main(String[] args) {
         Hero heroZero = new Hero();
-        heroZero.Move("Темерия", "Тусент");
+        heroZero.move("Темерия", "Тусент");
 
         Hero hero = new Hero(new WalkStrategy());
         String from = "Корусант";
@@ -21,102 +81,42 @@ public class StrategyDemo {
             System.out.println("0 - Выход");
             System.out.print("Ваш выбор: ");
 
-            int choice = scanner.nextInt();
+            Scanner scanner = new Scanner(System.in);
+            int choice = -1;
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+            }
+
             if (choice == 0) {
                 System.out.println("Выход из игры...");
                 break;
             }
 
-            System.out.print("Введите пункт назначения: ");
-            to = scanner.next();
-
             switch (choice) {
                 case 1:
-                    hero.SetMoveStrategy(new WalkStrategy());
+                    hero.setMoveStrategy(new WalkStrategy());
                     break;
                 case 2:
-                    hero.SetMoveStrategy(new RunStrategy());
+                    hero.setMoveStrategy(new RunStrategy());
                     break;
                 case 3:
-                    hero.SetMoveStrategy(new HorseRideStrategy());
+                    hero.setMoveStrategy(new HorseRideStrategy());
                     break;
                 case 4:
-                    hero.SetMoveStrategy(new FlyStrategy());
+                    hero.setMoveStrategy(new FlyStrategy());
                     break;
                 case 5:
-                    hero.SetMoveStrategy(new SwimStrategy());
+                    hero.setMoveStrategy(new SwimStrategy());
                     break;
                 default:
                     System.out.println("Вариант отсутствует");
                     continue;
             }
 
-            hero.Move(from, to);
+            System.out.print("Введите пункт назначения: ");
+            to = scanner.next();
+            hero.move(from, to);
             from = to;
         }
-
-        scanner.close();
-    }
-}
-
-interface MoveStrategy {
-    void Move(String from, String to);
-}
-
-class Hero {
-    private MoveStrategy moveStrategy;
-
-    public Hero() { }
-
-    public Hero(MoveStrategy moveStrategy) {
-        this.moveStrategy = moveStrategy;
-    }
-
-    public void SetMoveStrategy(MoveStrategy moveStrategy) {
-        this.moveStrategy = moveStrategy;
-    }
-
-    public void Move(String from, String to) {
-        if (moveStrategy != null) {
-            moveStrategy.Move(from, to);
-        }
-        else {
-            System.out.println("Способ перемещения героя не установлен!");
-        }
-    }
-}
-
-class WalkStrategy implements MoveStrategy {
-    @Override
-    public void Move(String from, String to) {
-        System.out.println("Иду пешком из " + from + " в " + to);
-    }
-}
-
-class RunStrategy implements MoveStrategy {
-    @Override
-    public void Move(String from, String to) {
-        System.out.println("Бегу из " + from + " в " + to);
-    }
-}
-
-class HorseRideStrategy implements MoveStrategy {
-    @Override
-    public void Move(String from, String to) {
-        System.out.println("Еду верхом на лошади из " + from + " в " + to);
-    }
-}
-
-class FlyStrategy implements MoveStrategy {
-    @Override
-    public void Move(String from, String to) {
-        System.out.println("Лечу из " + from + " в " + to);
-    }
-}
-
-class SwimStrategy implements MoveStrategy {
-    @Override
-    public void Move(String from, String to) {
-        System.out.println("Плыву по реке из " + from + " в " + to);
     }
 }
