@@ -60,7 +60,8 @@ public class Main {
         var obj = new AnnotationTestClass();
 
         for (Method method : obj.getClass().getDeclaredMethods()) {
-            if (method.isAnnotationPresent(Repeat.class)) {
+            var modifier = method.getModifiers();
+            if (method.isAnnotationPresent(Repeat.class) && (Modifier.isPrivate(modifier) || Modifier.isProtected(modifier))) {
                 method.setAccessible(true);
                 var argsForMethod = getDefaultArgs(method.getParameterTypes());
 
