@@ -1,0 +1,7 @@
+dog | собака
+cat | кошка
+look | смотреть
+look forward | ожидать
+look after | присматривать
+big dog | большая собака
+window | окно
